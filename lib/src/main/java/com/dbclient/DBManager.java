@@ -359,7 +359,7 @@ public class DBManager {
         String tempID = "c";
 
         // Build componentized prepared statement
-        ComponentizedPreparedStatement cps = SelectComponentizedPreparedStatementBuilder.forTable(tableName).select(new As(new Count(String.join(",", joinColumns), distinct).toString(), tempID).toString()).where(sqlConditions).innerJoin(joinTableName, joinColumns).build();
+        ComponentizedPreparedStatement cps = SelectComponentizedPreparedStatementBuilder.forTable(tableName).select(new As(new Count(joinColumns.stream().map((c) -> joinTableName + "." + c).collect(Collectors.joining(",")), distinct).toString(), tempID).toString()).where(sqlConditions).innerJoin(joinTableName, joinColumns).build();
 
         // Return result of countWithComponentizedPreparedStatement
         return countWithComponentizedPreparedStatement(conn, cps, tempID);
