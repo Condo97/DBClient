@@ -428,6 +428,7 @@ public class DBManager {
         updateWhereByPrimaryKey(
                 conn,
                 dbClass,
+                primaryKey,
                 Map.of(toUpdateCol, newVal)
         );
     }
